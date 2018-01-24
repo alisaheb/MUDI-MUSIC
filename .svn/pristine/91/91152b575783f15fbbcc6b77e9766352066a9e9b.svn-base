@@ -1,0 +1,72 @@
+<?php
+ $role = Session::get('role');
+ $user = Session::get('user');
+ ?>
+
+
+<?php $__env->startSection('main'); ?>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="row profile">
+				<div class="profile-sidebar">
+					<!-- SIDEBAR USERPIC -->
+					<div class="profile-userpic">
+						<img src="<?php if(empty($publisher[0]->publisher_logo)): ?><?php echo asset('template/img/user2-160x160.jpg'); ?> <?php else: ?> <?php echo asset($publisher[0]->publisher_logo); ?> <?php endif; ?>" class="img-responsive" alt="">
+					</div>
+					<!-- END SIDEBAR USERPIC -->
+					<!-- SIDEBAR USER TITLE -->
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">
+							<?php if(empty($publisher[0]->publisher_full_name)): ?>
+							<?php echo 'Not set Yet'; ?>
+
+								<?php else: ?>
+								<?php echo $publisher[0]->publisher_full_name; ?>
+
+								<?php endif; ?>
+						</div>
+						<div class="profile-usertitle-job">
+							Publisher
+						</div>
+					</div>
+					<!-- END SIDEBAR USER TITLE -->
+					<!-- SIDEBAR BUTTONS -->
+
+					<!-- END SIDEBAR BUTTONS -->
+					<!-- SIDEBAR MENU -->
+					<div class="profile-usermenu">
+						<ul class="nav">
+							<li class="active">
+								<a href="#">
+								<i class="fa fa-home"></i>
+								Overview </a>
+							</li>
+							<li>
+								<a href="<?php echo route('managepublisherprofiles.edit',[$user[0]->publisher_id]); ?>">
+								<i class="fa fa-user"></i>
+								Account Settings </a>
+							</li>
+							<li>
+								<a href="<?php echo route('changepass',[$user[0]->publisher_id]); ?>">
+								<i class="fa fa-check"></i>
+								Change Password </a>
+							</li>
+							<li>
+								<a href="#">
+								<i class="fa fa-flag-o"></i>
+								Help </a>
+							</li>
+						</ul>
+					</div>
+					<!-- END MENU -->
+				</div>
+		</div>
+
+
+	<br>
+	<br>
+	</div>
+</div>
+		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mudidashboard.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

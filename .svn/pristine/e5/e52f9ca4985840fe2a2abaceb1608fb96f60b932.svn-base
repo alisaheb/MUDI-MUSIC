@@ -1,0 +1,1 @@
+D:\Ali Saheb\mudi\app/views/managebandprofiles/edit.blade.php

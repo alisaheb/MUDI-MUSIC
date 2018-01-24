@@ -1,0 +1,39 @@
+<?php
+
+class forgotPasswordController extends \BaseController {
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return View::make('forgotpassword.forgotpassword');
+	}
+	public function getYourAccount(){
+		$userData = array('user_login'=>"",'user_data'=>"");
+		if(Input::has('email')) {
+			$userEmail = Input::get('email');
+			$checkUser = UserLogin::where('user_email', $userEmail)->get();
+			$count = $checkUser->count();
+			if ($count == 1) {
+				if($checkUser[0]->role == 1){
+					$bandinformation = "";
+				}
+				elseif($checkUser[0]->role == 2){
+					$bandinformation = Band::where('ref_user_id',$checkUser[0]->user_id)->get();
+				}
+				else{
+					$bandinformation = Publisher::where('ref_user_id',$checkUser[0]->user_id)->get();
+				}
+				$userData = array('user_login'=>$checkUser,'user_data'=>$bandinformation);
+
+			}
+			return View::make("");
+		}
+
+
+
+	}
+}

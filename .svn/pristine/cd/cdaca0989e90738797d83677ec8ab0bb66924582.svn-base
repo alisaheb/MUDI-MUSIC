@@ -1,0 +1,128 @@
+<?php
+
+class BandLicenseChecksController extends \BaseController {
+
+	/**
+	 * Display a listing of bandlicensechecks
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		$bandlicensechecks = Bandlicensecheck::all();
+
+		return View::make('bandlicensechecks.index', compact('bandlicensechecks'));
+	}
+
+	/**
+	 * Show the form for creating a new bandlicensecheck
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return View::make('bandlicensechecks.create');
+	}
+
+	/**
+	 * Store a newly created bandlicensecheck in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$validator = Validator::make($data = Input::all(), Bandlicensecheck::$rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		Bandlicensecheck::create($data);
+
+		return Redirect::route('bandlicensechecks.index');
+	}
+
+	/**
+	 * Display the specified bandlicensecheck.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$bandlicensecheck = Bandlicensecheck::findOrFail($id);
+
+		return View::make('bandlicensechecks.show', compact('bandlicensecheck'));
+	}
+
+	/**
+	 * Show the form for editing the specified bandlicensecheck.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$bandlicensecheck = Bandlicensecheck::find($id);
+
+		return View::make('bandlicensechecks.edit', compact('bandlicensecheck'));
+	}
+
+	/**
+	 * Update the specified bandlicensecheck in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		$bandlicensecheck = Bandlicensecheck::findOrFail($id);
+
+		$validator = Validator::make($data = Input::all(), Bandlicensecheck::$rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		$bandlicensecheck->update($data);
+
+		return Redirect::route('bandlicensechecks.index');
+	}
+
+	/**
+	 * Remove the specified bandlicensecheck from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		Bandlicensecheck::destroy($id);
+
+		return Redirect::route('bandlicensechecks.index');
+	}
+
+	//band check
+	public function postCheckBand(){
+		$bandCheckReturn = array(
+			'error'=>true,
+			'message'=>"User mail or password is missing.",
+		);
+
+		if( Input::has('username') && Input::has('userpass')) {
+
+			$userMail = Input::get('username');
+			$userPass = Input::get('userpass');
+
+			$userControl = array('usermail' => $userMail, 'userpass' => $userPass);
+
+			$bandCheckReturn = BandLicenseCheck::bandCheck($userControl);
+		}
+
+
+		return $bandCheckReturn;
+	}
+
+}

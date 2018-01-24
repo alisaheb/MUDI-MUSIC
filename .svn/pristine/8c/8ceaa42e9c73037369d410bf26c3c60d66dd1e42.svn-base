@@ -1,0 +1,29 @@
+<?php
+/*Dutch conversion*/
+return array(
+    //button for all
+    'save'=>'Sparen',
+    'reset'=>'Resetten',
+    //get score page
+    'get_score'=>'Krijgen Scores',
+    'album'=>'Albums',
+    'serial'=>'Serie-',
+    'album_name'=>'Album Naam',
+    'action'=>'Acties',
+    //get license page
+    'license'=>'Licentie',
+    'get_license'=>'Get License',
+    'current_license'=>'Huidige Licentie',
+    'click_here_for_license_information'=>'klik hier voor licentie-informatie',
+    'your_license_type'=>'Uw Licentie Soort',
+    'your_band_id'=>'Je Band Id',
+    'your_band_key'=>'Je Band Sleutel',
+    'band_information'=>'Band Informatie',
+    'lead_name'=>'Lead Naam',
+    'band_name'=>'Band Naam',
+    'license_type'=>'Soort Licentie',
+    'validity'=>'Deugdelijkheid',
+    'update_availability'=>'Beschikbaarheid Bijwerken',
+    'free_practice_total'=>'Vrije Training In Totaal',
+    'device_allow'=>'Apparaat Toestaan',
+);

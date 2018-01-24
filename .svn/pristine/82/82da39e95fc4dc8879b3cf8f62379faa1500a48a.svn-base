@@ -1,0 +1,132 @@
+<?php
+
+class Usercontroller extends \BaseController {
+
+	/**
+	 * Display a listing of the resource.
+	 * GET /usercontroller
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		//
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 * GET /usercontroller/create
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		//
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 * POST /usercontroller
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		//
+		$email = Input::get('user_email');
+		$password = Input::get('password');
+		$usertype = Input::get('checkuser');	
+		$data = array(
+			'user_email' =>$email ,
+			'password' =>$password,
+			);
+
+
+		$validator = Validator::make($data, Users::validInput());
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+
+		//attemping to login
+		
+			try{
+			$gotodashboard = Users::checkUser($data);
+			if($gotodashboard == 1){
+				if(Session::has('role') && Session::get('role') == 2) {
+					return Redirect::route('getlicenses.create');
+				}
+				elseif(Session::has('role') && Session::get('role') == 1){
+					return Redirect::route('mudiadmins.index');
+				}
+				else{
+					return Redirect::route('dashboards.index');
+
+				}
+			}
+			}
+			catch(Exception $e){
+				Session::flash('error_msg', 'user name or password worng');
+				return Redirect::to('/login')->withInput();
+			}
+		
+	}
+
+	/**
+	 * Display the specified resource.
+	 * GET /usercontroller/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		//
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 * GET /usercontroller/{id}/edit
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 * PUT /usercontroller/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 * DELETE /usercontroller/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		//
+	}
+
+	public function showLogin(){
+		
+		return View::make('login.loginform');
+	}
+
+
+
+}

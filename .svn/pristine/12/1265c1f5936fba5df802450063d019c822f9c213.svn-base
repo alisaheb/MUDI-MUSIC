@@ -1,0 +1,18 @@
+/**
+ * Created by ALi on 09/10/2015.
+ */
+$("#language_change").on('click',function(event){
+    event.preventDefault();
+    var $input = $( this );
+
+
+    var languageLink =  $input.attr( "href" );
+
+    $.ajax({url: languageLink,
+        success: function(result){
+
+            location.reload();
+        }
+    });
+
+});

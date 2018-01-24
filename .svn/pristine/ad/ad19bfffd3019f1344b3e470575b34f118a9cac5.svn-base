@@ -1,0 +1,138 @@
+<div class="row">
+    <!-- Left col -->
+    <div class="col-md-8">
+        <!-- MAP & BOX PANE -->
+
+        <div class="row">
+            <div class="col-md-6">
+                <!-- USERS LIST -->
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Latest Band</h3>
+                        <div class="box-tools pull-right">
+                            <span class="label label-danger">8 New Members</span>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <ul class="users-list clearfix">
+                            <?php foreach($band_publisher['band'] as $band): ?>
+                            <li>
+                                <img src="<?php echo asset('template/img/user2-160x160.jpg'); ?>" alt="User Image">
+                                <a class="users-list-name" href="#"><?php echo $band->band_name; ?></a>
+                                <span class="users-list-date">Today</span>
+                            </li>
+                            <?php endforeach; ?>
+
+                        </ul><!-- /.users-list -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript::" class="uppercase">View All Users</a>
+                    </div><!-- /.box-footer -->
+                </div><!--/.box -->
+            </div><!-- /.col --><div class="col-md-6">
+                <!-- USERS LIST -->
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Latest Publisher</h3>
+                        <div class="box-tools pull-right">
+                            <span class="label label-danger">8 New Members</span>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <ul class="users-list clearfix">
+                            <?php foreach($band_publisher['publisher'] as $publisher): ?>
+                            <li>
+                                <img src="<?php echo asset('template/img/user2-160x160.jpg'); ?>" alt="User Image">
+                                <a class="users-list-name" href="#"><?php echo $publisher->publisher_full_name; ?></a>
+                                <span class="users-list-date">Today</span>
+                            </li>
+                            <?php endforeach; ?>
+
+                        </ul><!-- /.users-list -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript::" class="uppercase">View All Users</a>
+                    </div><!-- /.box-footer -->
+                </div><!--/.box -->
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+
+        <!-- TABLE: LATEST ORDERS -->
+        <div class="box box-info">
+            <div class="box-header with-border">
+                <h3 class="box-title">Latest Purchased Album</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body" style="display: block;">
+                <div class="table-responsive">
+                    <table class="table no-margin">
+                        <thead>
+                        <tr>
+                            <th>Album Name</th>
+                            <th>Band Name</th>
+                            <th>Purchase Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($purchased_album as $albums): ?>
+                        <tr>
+                            <td><?php echo $albums->album_name; ?></td>
+                            <td><?php echo $albums->band_name; ?></td>
+                            <td><?php echo $albums->purchased_date; ?></td>
+                        </tr>
+                        <?php endforeach; ?>
+
+                        </tbody>
+                    </table>
+                </div><!-- /.table-responsive -->
+            </div><!-- /.box-body -->
+            <div class="box-footer clearfix" style="display: block;">
+                <a href="javascript::;" class="btn btn-sm btn-info btn-flat pull-left">Place New Order</a>
+                <a href="javascript::;" class="btn btn-sm btn-default btn-flat pull-right">View All Orders</a>
+            </div><!-- /.box-footer -->
+        </div><!-- /.box -->
+    </div><!-- /.col -->
+
+    <div class="col-md-4">
+        <!-- Info Boxes Style 2 -->
+        <!-- PRODUCT LIST -->
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Recently Added Album</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body" style="display: block;">
+                <ul class="products-list product-list-in-box">
+                    <?php foreach($album_name as $album_Name): ?>
+                    <li class="item">
+                        <div class="product-img">
+                            <img src="<?php echo asset('template/img/music_cd.png'); ?>" alt="Product Image">
+                        </div>
+                        <div class="product-info">
+                            <a href="javascript::;" class="product-title"><?php echo $album_Name->album_name; ?> <span class="label label-warning pull-right">$1800</span></a>
+                        <span class="product-description">
+                          <?php echo $album_Name->album_name; ?>
+
+                        </span>
+                        </div>
+                    </li><!-- /.item -->
+                   <?php endforeach; ?>
+
+                </ul>
+            </div><!-- /.box-body -->
+            <div class="box-footer text-center" style="display: block;">
+                <a href="javascript::;" class="uppercase">View All Products</a>
+            </div><!-- /.box-footer -->
+        </div><!-- /.box -->
+    </div><!-- /.col -->
+</div>

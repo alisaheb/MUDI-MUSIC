@@ -1,0 +1,65 @@
+<?php $__env->startSection('content-header'); ?>
+	<h1>
+		<?php echo Lang::get('conversion.album_score'); ?>
+
+		<small><?php echo isset($page_description) ? $page_description : null; ?></small>
+	</h1>
+	<!-- You can dynamically generate breadcrumbs here -->
+	<ol class="breadcrumb">
+      <li><a href="<?php echo route('getscores.index'); ?>"><i class="fa fa-dashboard"></i> <?php echo Lang::get('conversion.album'); ?></a></li>
+      <li class="active"><?php echo Lang::get('conversion.album_score'); ?></li>
+    </ol>
+
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('main'); ?>
+		<?php /*my code      */ ?>
+		<div class='row'>
+			<div class='col-md-8 col-md-offset-2'>
+				<!-- Box -->
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title"><?php echo Lang::get('conversion.scores'); ?></h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+							<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+						</div>
+					</div>
+					<div class="box-body">
+						<table class="table table-form table-bordered addrowtable" id="items-table">
+							<thead>
+							<tr class="thead">
+								<th><?php echo Lang::get('conversion.serial'); ?></th>
+								<th><?php echo Lang::get('conversion.track_name'); ?></th>
+							</tr>
+							</thead>
+
+							<tbody>
+							<?php $i=1; ?>
+							<?php foreach($tracklists as $track): ?>
+								<tr>
+									<td>
+										<?php echo $i; ?>
+
+									</td>
+									<td>
+										<i class="fa fa-music"></i> &nbsp;&nbsp;<?php echo $track->score_title; ?>
+
+									</td>
+
+								</tr>
+								<?php $i++; ?>
+							<?php endforeach; ?>
+							</tbody>
+
+						</table>
+
+					</div><!-- /.box-body -->
+
+				</div><!-- /.box -->
+			</div><!-- /.col -->
+		</div>
+		
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('mudidashboard.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

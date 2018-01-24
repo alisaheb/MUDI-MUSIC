@@ -1,0 +1,31 @@
+<?php
+/*english conversion*/
+return array(
+    //button for all
+    'save'=>'Save',
+    'reset'=>'Reset',
+
+    //get score page
+    'get_score'=>'Get Scores',
+    'album'=>'Albums',
+    'serial'=>'Serial',
+    'album_name'=>'Album Name',
+    'action'=>'Actions',
+    //get license page
+    'license'=>'License',
+    'get_license'=>'Krijgen Licentie',
+    'current_license'=>'Current License',
+    'click_here_for_license_information'=>'Click here for license information',
+    'your_license_type'=>'Your License Type',
+    'your_band_id'=>'Your Band Id',
+    'your_band_key'=>'Your Band Key',
+    'band_information'=>'Band Information',
+    'lead_name'=>'Lead Name',
+    'band_name'=>'Band Name',
+    'license_type'=>'License Type',
+    'validity'=>'Validity',
+    'update_availability'=>'Update Availability',
+    'free_practice_total'=>'Free Practice Total',
+    'device_allow'=>'Device Allow',
+
+);

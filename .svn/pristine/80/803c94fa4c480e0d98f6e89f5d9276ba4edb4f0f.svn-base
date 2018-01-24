@@ -1,0 +1,125 @@
+<?php $__env->startSection('main'); ?>
+	<div class="tse-form col-md-6 col-md-offset-3">
+
+		<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Update Score</h3>
+  </div>
+  <div class="panel-body">
+  		<?php echo Former::horizonal_open()->action(route('uploadscores.update',[$uploadscore->album_id]))->method('PUT')->enctype('multipart/form-data'); ?>		  
+		  <fieldset>
+		    <legend>Update Score</legend>
+
+		   <div class="row">
+			<div class="col-md-12">
+			<div class="form-group">
+      		  <label for="inputEmail" class="col-lg-4 control-label">Album Name</label>
+		      <div class="col-lg-8">
+		        <input name="album_name" type="text" class="form-control" id="inputEmail" placeholder="Album Name" value="<?php echo $uploadscore->album_name; ?>">
+		      </div>
+    		</div>	
+			<table class="table table-form table-bordered addrowtable" id="items-table">
+				<thead>
+					<tr class="thead">												
+						<th>Track Name</th>
+						<th>Track File</th>						
+						<th>Actions</th>												
+					</tr>
+				</thead>
+
+				<tbody>
+					<?php foreach($scores as $score): ?>
+						<tr>
+							<td>
+								<input type="hidden" class="rate" name="updateItem[<?php echo $score->score_id; ?>][score_id]" value="<?php echo $score->score_id; ?>">
+								<input type="text" class="rate" name="updateItem[<?php echo $score->score_id; ?>][score_title]" value="<?php echo $score->score_title; ?>">
+							</td>
+							<td>
+								<input type="file"  class="sales-qty quickedit" name="updateItem[<?php echo $score->score_id; ?>][file_path]" value="">
+							</td>
+							<td>
+								<button type="button" class="btn btn-warning btn-xs delete-row" data-delete="<?php echo $score->score_id; ?>">Delete</button>
+							</td>
+						</tr>	
+					<?php endforeach; ?>
+
+				</tbody>						
+						
+			</table>			
+				<button type="button" class="btn btn-primary btn-xs addrow pull-right" id="add-row" >Add Detail</button>
+				</div> 
+			</div>
+
+		    <?php echo Former::actions()
+    			->large_primary_submit('Update'); ?>
+
+		  </fieldset>
+		<?php echo Former::close(); ?>
+
+  </div>
+</div>
+
+<div class="hide">
+	<?php foreach($scores as $score): ?>
+	<?php echo Former::horizonal_open()->action(route('upladscoredetails.destroy',[$score->score_id]))->method('DELETE')->data_delete_form($score->score_id); ?>
+
+	<?php echo Former::close(); ?>
+
+	<?php endforeach; ?>
+</div>
+		
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('footer'); ?>
+<script type="text/template" id="new-item-row">
+<tr id="<%=uid%>">		
+		
+	<td class="full">
+		<input type="text" class="rate" name="currentItem[<%= uid %>][score_title]" value="">
+	</td>
+	<td class="full">
+		<input type="file"  class="sales-qty quickedit" name="currentItem[<%= uid %>][file_path]" value="">
+	</td>	
+	<td>
+		<button type="button" class="btn btn-warning btn-xs delete-row">Delete</button>		
+	</td>
+</tr>
+</script>
+
+<script type="text/javascript">
+
+$("#add-row").on('click', function(){
+		var template = _.template($("#new-item-row").html());
+		var uid = _.uniqueId('new-');
+		var row = template({'uid': uid});
+		$("#items-table tbody").append(row);						
+	});
+
+	$(document).on('click', '.delete-row', function(){
+		var $row = $(this).parent().parent();
+		$row.fadeOut().remove();		
+	});
+
+
+$("button[data-delete]").on('click', function(){
+
+				var id = $(this).attr('data-delete');
+				var $form = $('form[data-delete-form='+id+']')
+				var data = $form.serialize();
+				var action = $form.attr('action');
+
+				$.ajax({
+					method: 'POST',
+					url: action,
+					data: data,
+					success: function(){
+
+						$("tr[data-delete-row="+id+"]").fadeOut('fast').remove();						
+					}
+						
+				});
+		});	
+
+</script>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mudidashboard.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

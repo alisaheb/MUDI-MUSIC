@@ -1,0 +1,60 @@
+<?php
+
+class forgotPasswordController extends \BaseController {
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		return View::make('forgotpassword.forgotpassword');
+	}
+	public function getYourAccount(){
+		$userData = array('user_login'=>"",'user_data'=>"");
+		if(Input::has('email')) {
+			$userEmail = Input::get('email');
+			$checkUser = UserLogin::where('user_email', $userEmail)->get();
+			$count = $checkUser->count();
+			if ($count == 1) {
+				if($checkUser[0]->role == 1){
+					$bandinformation = "";
+				}
+				elseif($checkUser[0]->role == 2){
+					$bandinformation = Band::where('ref_user_id',$checkUser[0]->user_id)->get();
+				}
+				else{
+					$bandinformation = Publisher::where('ref_user_id',$checkUser[0]->user_id)->get();
+				}
+				$userData = array('user_login'=>$checkUser,'user_data'=>$bandinformation);
+
+			}
+			$userDatas = $userData;
+			return View::make("forgotpassword.userdata",compact('userDatas'));
+		}
+		else{
+			$error = array('error'=>'true','message'=>'The mail Address Is Require');
+			return Redirect::back()->with('error',$error);
+		}
+	}
+
+	public function sendMail(){
+		if(Input::has('mail')){
+			$mailAddress = Input::get('mail');
+
+		}
+	}
+
+	public static function generateRandomString($length = 10) {
+		$characters = '23456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
+
+
+}

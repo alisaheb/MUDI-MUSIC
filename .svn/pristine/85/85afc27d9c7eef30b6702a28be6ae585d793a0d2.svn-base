@@ -1,0 +1,119 @@
+{
+  "ref_band_id": 3,
+  "band_key": "xVeCTE42fGae642sfgAdrJuYOwsr3",
+  "install_date": "01/08/2015",
+  "expire_date": "31/12/2015",
+  "publishers": [
+    {
+    "ref_publisher_id": 2,
+    "publisher_key": "rCtSbeCTE42fGae642uYOwsr3",
+      "albums": [
+        {
+          "album_id": 4,
+          "scores":[
+              {
+                "score_id": 7,
+                "drive_file_id": "RdxerERwerwefs",
+                "score_title": "Aniket prantor.",
+                "score_note": null,
+                "file_path": "upload/14359131823178.jpg",
+                "current_status": 1,
+                "created_at": "2015-07-03 08:46:22",
+                "updated_at": "2015-07-03 08:46:22"
+              },
+              {
+                "score_id": 8,
+                "drive_file_id": "serERwerwefsds",
+                "score_title": "Valo achi, valo theko.",
+                "score_note": null,
+                "file_path": "upload/14359131823178.jpg",
+                "current_status": 1,
+                "created_at": "2015-07-03 08:46:22",
+                "updated_at": "2015-07-03 08:46:22"
+              }
+            ]
+        },
+        {
+          "album_id": 5,
+          "scores":[
+              {
+                "score_id": 9,
+                "drive_file_id": "RdxerERwerwefs",
+                "score_title": "Bes koreci, prem koreci, korboi to.",
+                "score_note": null,
+                "file_path": "upload/14359131823178.jpg",
+                "current_status": 1,
+                "created_at": "2015-07-03 08:46:22",
+                "updated_at": "2015-07-03 08:46:22"
+              },
+              {
+                "score_id": 10,
+                "drive_file_id": "serERwerwefsds",
+                "score_title": "Tumi amar prothom sokal.",
+                "score_note": null,
+                "file_path": "upload/14359131823178.jpg",
+                "current_status": 1,
+                "created_at": "2015-07-03 08:46:22",
+                "updated_at": "2015-07-03 08:46:22"
+              }
+            ]
+        }
+      ]
+    },{
+    "ref_publisher_id": 3,
+    "publisher_key": "rCtSbeCTE42fGae642uYOwsr3",
+      "albums": [
+        {
+          "album_id": 6,
+          "scores":[
+              {
+                "score_id": 11,
+                "drive_file_id": "RdxerERwerwefs",
+                "score_title": "Jekhanei thako tumi, valo theko.",
+                "score_note": null,
+                "file_path": "upload/14359131823178.jpg",
+                "current_status": 1,
+                "created_at": "2015-07-03 08:46:22",
+                "updated_at": "2015-07-03 08:46:22"
+              },
+              {
+                "score_id": 12,
+                "drive_file_id": "serERwerwefsds",
+                "score_title": "Ami vule jai tumi amar nou.",
+                "score_note": null,
+                "file_path": "upload/14359131823178.jpg",
+                "current_status": 1,
+                "created_at": "2015-07-03 08:46:22",
+                "updated_at": "2015-07-03 08:46:22"
+              }
+            ]
+        },
+        {
+          "album_id": 7,
+          "scores":[
+              {
+                "score_id": 14,
+                "drive_file_id": "RdxerERwerwefs",
+                "score_title": "Jekhane simanto tomar.",
+                "score_note": null,
+                "file_path": "upload/14359131823178.jpg",
+                "current_status": 1,
+                "created_at": "2015-07-03 08:46:22",
+                "updated_at": "2015-07-03 08:46:22"
+              },
+              {
+                "score_id": 17,
+                "drive_file_id": "serERwerwefsds",
+                "score_title": "Tumi daklei kace astam, se to jantei.",
+                "score_note": null,
+                "file_path": "upload/14359131823178.jpg",
+                "current_status": 1,
+                "created_at": "2015-07-03 08:46:22",
+                "updated_at": "2015-07-03 08:46:22"
+              }
+            ]
+        }
+      ]
+    }
+  ]
+}

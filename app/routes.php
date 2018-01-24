@@ -1,0 +1,107 @@
+<?php
+
+
+Route::group(array('before' => 'languagechange'), function() {
+	/*for web authentication*/
+	Route::get('login',array('before'=>'go_dashboard','as'=>'login','uses'=>'Usercontroller@showLogin'));
+	Route::resource('users', 'Usercontroller');
+	/*for mobile application authentication */
+	Route::any('bandlicensecheck', array('as' => 'bandlicensecheck', 'uses' => 'BandLicenseChecksController@postCheckBand'));
+
+	/*band routes*/
+	Route::get('changebandpass/{id}', array('before' => 'band_auth', 'as' => 'changebandpass', 'uses' => 'ManagebandprofilesController@changeBandPass'));
+
+	/*end band routes*/
+
+	Route::resource('mudiadmins', 'MudiadminsController');
+
+	Route::resource('getlicenses', 'GetlicensesController');
+
+
+	Route::resource('uploadscores', 'UploadscoresController');
+	Route::resource('upladscoredetails', 'UpladscoredetailsController');
+
+	Route::resource('getscores', 'GetscoresController');
+
+	Route::get('purchasescores/{id}', array('before' => 'band_auth', 'as' => 'purchasescores', 'uses' => 'GetscoresController@purchasedScores'));
+
+
+	Route::resource('bands', 'BandsController');
+	Route::resource('publishers', 'PublishersController');
+
+
+	Route::resource('dashboards', 'DashboardsController');
+
+	Route::resource('managebandprofiles', 'ManagebandprofilesController');
+	Route::resource('managepublisherprofiles', 'ManagepublisherprofilesController');
+
+	Route::get('changepass/{id}', array('before' => 'publisher_auth', 'as' => 'changepass', 'uses' => 'ManagepublisherprofilesController@getChangePassword'));
+	Route::put('sschangepass/{id}', array('before' => 'publisher_auth', 'as' => 'sschangepass', 'uses' => 'ManagepublisherprofilesController@putChangePassword'));
+
+
+
+	Route::get('changebandimage/{id}', array('before' => 'band_auth', 'as' => 'changebandimage', 'uses' => 'ManagebandprofilesController@changeBandLogoView'));
+	Route::put('actionofchangeImage/{id}', array('before' => 'band_auth', 'as' => 'actionofchangeImage', 'uses' => 'ManagebandprofilesController@actionChangeImage'));
+
+	Route::put('performchangebandpass/{id}', array('before' => 'band_auth', 'as' => 'performchangebandpass', 'uses' => 'ManagebandprofilesController@performChangeBandPass'));
+//changing Password
+
+//end changing password
+
+
+
+
+//end offor authentication
+	Route::get('/', function () {
+		return View::make('home.templet.index');
+	});
+
+	Route::get('/logout', function () {
+		Session::forget('user');
+		Session::forget('role');
+		Session::forget('login_data');
+		Session::forget('menu_data');
+
+		return Redirect::to('login');
+	});
+
+	Route::resource('google', 'GoogledrivesController');
+
+//Route::resource('returnallscores', 'ReturnallscoresController');
+	Route::any('returnallscores', array('as' => 'returnallscores', 'uses' => 'ReturnallscoresController@getPurchasedScore'));
+	Route::any('removeallscore', array('as' => 'removeallscore', 'uses' => 'ReturnallscoresController@removeDownloadscores'));
+
+
+
+
+	Route::get('/howmudiworks', function () {
+		return View::make('howItWorks.index');
+	});
+	Route::get('forgotpassword',array('as'=>'forgotpassword', 'uses'=>'forgotPasswordController@index'));
+	Route::post('getuserdata',array('as'=>'getuserdata', 'uses'=>'forgotPasswordController@getYourAccount'));
+	Route::post('resetpassurl',array('as'=>'resetpassurl', 'uses'=>'forgotPasswordController@sendMail'));
+	Route::get('forgotpass',array('as'=>'forgotpass', 'uses'=>'forgotPasswordController@resetPassWord'));
+	Route::post('setnewpass',array('as'=>'setnewpass', 'uses'=>'forgotPasswordController@setnewpassword'));
+});
+
+
+//Language setting
+Route::get('/language',function(){
+	$language_code = Input::get('language');
+
+	if($language_code == 1){
+		Session::set('languageid',1);
+	}
+	elseif($language_code == 2){
+		Session::set('languageid',2);
+	}
+	else{
+		Session::set('languageid',1);
+	}
+return Redirect::back();
+});
+
+Route::get('/test', function () {
+	//$pathToFile = base_path().'/';
+	return Response::download($pathToFile);
+});

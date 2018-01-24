@@ -1,0 +1,27 @@
+<?php
+$language_code = 2;
+if(Session::has('languageid')){
+
+    $language_code = Session::get('languageid');
+}
+?>
+<section id="call-to-action" class="call-to-action main-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-1 col-sm-6 col-sm-offset-1 col-xs-12 wow slideInLeft animated animated" style="visibility: visible; animation-name: slideInLeft;">
+                <p class="light-text">choose language</p>
+            </div>
+            @if($language_code == 1)
+                <div class="col-md-4 col-sm-4 col-xs-12 button-container wow slideInRight animated animated" style="visibility: visible; animation-name: slideInRight;">
+                    <a href="{{url('language')."?language=2"}}" class="button light internal-link pull-left hvr-grow" id="language_change" data-rel="#why-choose-us"><img src="{{asset('template/img/english.png')}}" width="25%"></a>
+                </div>
+            @endif
+            @if($language_code == 2)
+                <div class="col-md-4 col-sm-4 col-xs-12 button-container wow slideInRight animated animated" style="visibility: visible; animation-name: slideInRight;">
+                    <a href="{{url('language')."?language=1"}}" class="button light internal-link pull-left hvr-grow" id="language_change" data-rel="#why-choose-us"><img src="{{asset('template/img/dutch.jpg')}}" width="25%"></a>
+                </div>
+            @endif
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</section>

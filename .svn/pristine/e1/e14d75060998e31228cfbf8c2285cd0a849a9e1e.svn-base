@@ -1,0 +1,4 @@
+<?php
+return array(
+    'album_name'=>'Album Naam'
+);

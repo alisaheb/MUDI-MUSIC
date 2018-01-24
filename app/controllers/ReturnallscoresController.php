@@ -1,0 +1,199 @@
+<?php
+// git test
+require base_path().'/ali/quickstart.php';
+
+class ReturnallscoresController extends \BaseController {
+
+	/**
+	 * Display a listing of returnallscores
+	 *
+	 * @return Response
+	 */
+	public function index()
+	{
+		if(Input::has('band_id')) {
+			$band_id = Input::get('band_id');
+			$returnallscores = Returnallscore::getallScore($band_id);
+
+			//echo "<pre>";print_r($returnallscores);exit();
+
+			$purchaseScore = json_encode($returnallscores);
+		}
+		else{
+			$error = array(
+				'error'=>true,
+				'message'=>'Wornning! unfortunately application does not able set band id',
+			);
+			$purchaseScore = json_encode($error);
+		}
+
+		return $purchaseScore;
+	}
+
+	/**
+	 * Show the form for creating a new returnallscore
+	 *
+	 * @return Response
+	 */
+	public function create()
+	{
+		return View::make('returnallscores.create');
+	}
+
+	/**
+	 * Store a newly created returnallscore in storage.
+	 *
+	 * @return Response
+	 */
+	public function store()
+	{
+		$validator = Validator::make($data = Input::all(), Returnallscore::$rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		Returnallscore::create($data);
+
+		return Redirect::route('returnallscores.index');
+	}
+
+	/**
+	 * Display the specified returnallscore.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function show($id)
+	{
+		$returnallscore = Returnallscore::findOrFail($id);
+
+		return View::make('returnallscores.show', compact('returnallscore'));
+	}
+
+	/**
+	 * Show the form for editing the specified returnallscore.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id)
+	{
+		$returnallscore = Returnallscore::find($id);
+
+		return View::make('returnallscores.edit', compact('returnallscore'));
+	}
+
+	/**
+	 * Update the specified returnallscore in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id)
+	{
+		$returnallscore = Returnallscore::findOrFail($id);
+
+		$validator = Validator::make($data = Input::all(), Returnallscore::$rules);
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		$returnallscore->update($data);
+
+		return Redirect::route('returnallscores.index');
+	}
+
+	/**
+	 * Remove the specified returnallscore from storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function destroy($id)
+	{
+		Returnallscore::destroy($id);
+
+		return Redirect::route('returnallscores.index');
+	}
+
+	public function getPurchasedScore(){
+		//$hello =  base_path();
+		//return $hello;
+		if(Input::has('band_id')) {
+			$band_id = Input::get('band_id');
+			$returnallscores = Returnallscore::getallScore($band_id);
+
+
+
+			//echo "<pre>";print_r($returnallscores);exit();
+            $publisher_S = $returnallscores['publishers'];
+            if(!empty($publisher_S)){
+
+                $this->downloadScoreOnServer($band_id);
+            }
+
+			$purchaseScore = json_encode($returnallscores);
+		}
+		else{
+			$error = array(
+				'error'=>true,
+				'message'=>'Wornning! unfortunately application does not able set band id',
+			);
+			$purchaseScore = json_encode($error);
+		}
+
+		return $purchaseScore;
+	}
+
+	public function downloadScoreOnServer($band_id){
+		$sql = "select b.drive_file_id  from score_to_band a, scores b where a.ref_score_id = b.score_id and a.ref_band_id =?";
+		$scoresArr = DB::select($sql,[$band_id]);
+		$upload = new uploadfile();
+
+        $directoryName  = base_path()."/"."scores/".$band_id;
+
+        if(!file_exists($directoryName)){
+            mkdir($directoryName, 0777,true);
+        }
+
+		foreach($scoresArr as $scoresId ){
+			$upload->printFile($scoresId->drive_file_id,$band_id);
+		}
+
+		//echo "<pre>";print_r($scoresArr);exit();
+	}
+
+	public function removeDownloadscores(){
+		$message = array('error'=>true,'message'=>'problem occur');
+		$band_id = Input::get('band_id');
+		$directoryName  = base_path()."/"."scores/".$band_id;
+		$remove_tratus = $this->removeDir($directoryName);
+		if($remove_tratus == true){
+			$message = array('error'=>false,'message'=>'remove perfectly');
+		}
+		$message = json_encode($message);
+		return $message;
+	}
+
+	public function removeDir($path){
+		$remove_album = false;
+		$i = new DirectoryIterator($path);
+		foreach($i as $f) {
+			if($f->isFile()) {
+				unlink($f->getRealPath());
+			} else if(!$f->isDot() && $f->isDir()) {
+				rrmdir($f->getRealPath());
+			}
+		}
+		$success = rmdir($path);
+		if($success == true){
+			$remove_album = true;
+		}
+		return $remove_album;
+	}
+
+}

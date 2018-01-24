@@ -1,0 +1,52 @@
+<?php $__env->startSection('main'); ?>
+	<div class="tse-form col-md-6 col-md-offset-3">
+
+		<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Get Score</h3>
+  </div>
+  <div class="panel-body">
+  		
+		  <fieldset>
+		    <legend>Get Score</legend>
+			
+		   <div class="row">
+			<div class="col-md-6 col-md-offset-3">
+			<table class="table table-form table-bordered addrowtable" id="items-table">
+				<thead>
+					<tr class="thead">
+						<th>Sl.</th>												
+						<th>track Name</th>																		
+					</tr>
+				</thead>
+
+				<tbody>
+					<?php $i=1; ?>						
+					<?php foreach($tracklists as $track): ?>
+						<tr>
+							<td>
+								<?php echo $i; ?>
+
+							</td>
+							<td>
+								<i class="fa fa-music"></i> &nbsp;&nbsp;<?php echo $track->score_title; ?>
+
+							</td>
+								
+						</tr>
+						<?php $i++; ?>
+					<?php endforeach; ?>
+				</tbody>						
+						
+			</table>			
+				
+				</div> 
+			</div>
+		    
+		  </fieldset>		
+  </div>
+</div>
+		
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('mudidashboard.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

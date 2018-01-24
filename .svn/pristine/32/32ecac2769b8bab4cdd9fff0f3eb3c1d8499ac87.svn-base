@@ -1,0 +1,69 @@
+<?php $__env->startSection('main'); ?>
+	<div class="tse-form col-md-6 col-md-offset-3">
+
+		<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Get Score</h3>
+  </div>
+  <div class="panel-body">
+  		
+		  <fieldset>
+		    <legend>Get Score</legend>
+			
+		   <div class="row">
+			<div class="col-md-10 col-md-offset-1">
+			<table class="table table-form table-bordered addrowtable" id="items-table">
+				<thead>
+					<tr class="thead">
+						<th>Sl.</th>												
+						<th>Album Name</th>												
+						<th style="width: 196px">Actions</th>												
+					</tr>
+				</thead>
+
+				<tbody>
+					<?php $i=1; ?>						
+					<?php foreach($uploadscores as $album): ?>
+						<tr>
+							<td>
+								<?php echo $i; ?>
+
+							</td>
+							<td>
+								<?php echo $album->album_name; ?>
+
+							</td>
+							<td>
+								<div class="col-md-6">
+								<a data-pjax class="btn btn-info btn-xs"
+									href="<?php echo route('uploadscores.edit',[$album->album_id]); ?>">
+									<i class="fa fa-pencil-square-o"></i>&nbsp;&nbsp; Edit
+								</a>
+								</div>
+								<div class="col-md-6">
+								<?php echo Former::horizonal_open()->action(route('uploadscores.destroy',[$album->album_id]))->method('DELETE'); ?>
+
+								<button type="submit" class="btn btn-warning btn-xs"><i class="fa fa-trash-o"></i> &nbsp;&nbsp;Delete</button>
+								<?php echo Former::close(); ?>
+
+								</div>
+								
+							</td>	
+						</tr>
+						<?php $i++; ?>
+					<?php endforeach; ?>
+				</tbody>						
+						
+			</table>			
+				
+				</div> 
+			</div>
+		    
+		  </fieldset>		
+  </div>
+</div>
+		
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('mudidashboard.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

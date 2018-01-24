@@ -1,0 +1,43 @@
+<?php $role = Session::get('role');?>
+
+
+<?php $__env->startSection('main'); ?>
+
+	<div class="tse-form col-md-6 col-md-offset-3">
+    <?php if($role == 1): ?>
+		<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Band</h3>
+  </div>
+  <div class="panel-body">
+    <div>
+    	<a href="<?php echo action('getlicenses.create'); ?>"><i class="fa fa-user"></i>&nbsp; Get License</a>
+    </div>
+    <div>
+    	<a href="<?php echo action('getscores.index'); ?>"><i class="fa fa-download"></i>&nbsp;Get Score</a>
+    </div>
+    <div>
+    	<a href="<?php echo action('managebandprofiles.index'); ?>"> <i class="fa fa-user"></i>&nbsp; Manage Profile</a>
+    </div>
+  </div>
+</div>
+<?php endif; ?>
+<?php if($role == 2): ?>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Publisher</h3>
+  </div>
+  <div class="panel-body">
+    <div>
+      <a href="<?php echo action('getlicenses.create'); ?>"><i class="fa fa-user"></i>&nbsp; Manage Profile</a>
+    </div>
+    <div>
+      <a href="<?php echo action('uploadscores.create'); ?>"><i class="fa fa-upload"></i>&nbsp; Uplad Score</a>
+    </div>   
+  </div>
+</div>
+</div>
+<?php endif; ?>
+		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mudidashboard.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

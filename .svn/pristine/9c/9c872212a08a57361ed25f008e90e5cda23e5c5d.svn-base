@@ -1,0 +1,61 @@
+<?php
+
+class Usercontroller extends \BaseController {
+
+	public function store()
+	{
+		//
+		$email = Input::get('user_email');
+		$password = Input::get('password');
+		$usertype = Input::get('checkuser');	
+		$data = array(
+			'user_email' =>$email ,
+			'password' =>$password,
+			);
+
+
+		$validator = Validator::make($data, Users::validInput());
+
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+
+		//attemping to login
+		
+			try{
+			$gotodashboard = Users::checkUser($data);
+			if($gotodashboard == 1){
+				if(Session::has('role') && Session::get('role') == 2) {
+					return Redirect::route('getlicenses.create');
+				}
+				elseif(Session::has('role') && Session::get('role') == 1){
+					return Redirect::route('mudiadmins.index');
+				}
+				else{
+					return Redirect::route('dashboards.index');
+
+				}
+			}
+			}
+			catch(Exception $e){
+				Session::flash('error_msg', 'user name or password worng');
+
+				return Redirect::to('/login')->withInput();
+			}
+		
+	}
+
+
+
+
+
+	public function showLogin(){
+		
+		return View::make('login.loginform');
+	}
+
+
+
+}

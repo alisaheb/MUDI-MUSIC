@@ -1,0 +1,65 @@
+<?php $role = Session::get('role');?>
+
+
+<?php $__env->startSection('main'); ?>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<div class="row profile">
+				<div class="profile-sidebar">
+					<!-- SIDEBAR USERPIC -->
+					<div class="profile-userpic">
+						<img src="<?php echo asset('template/img/female_icon.png'); ?>" class="img-responsive" alt="">
+					</div>
+					<!-- END SIDEBAR USERPIC -->
+					<!-- SIDEBAR USER TITLE -->
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">
+							<?php echo $managebandprofiles[0]->band_lead_name; ?>
+
+						</div>
+						<div class="profile-usertitle-job">
+							<?php echo $managebandprofiles[0]->band_name; ?>
+
+						</div>
+					</div>
+					<!-- END SIDEBAR USER TITLE -->
+					<!-- SIDEBAR BUTTONS -->
+
+					<!-- END SIDEBAR BUTTONS -->
+					<!-- SIDEBAR MENU -->
+					<div class="profile-usermenu">
+						<ul class="nav">
+							<li class="active">
+								<a href="#">
+								<i class="fa fa-home"></i>
+								Overview </a>
+							</li>
+							<li>
+								<a href="#">
+								<i class="fa fa-user"></i>
+								Account Settings </a>
+							</li>
+							<li>
+								<a href="<?php echo route('changebandpass',[$managebandprofiles[0]->band_id]); ?>" target="_blank">
+								<i class="fa fa-check"></i>
+								Change pass </a>
+							</li>
+							<li>
+								<a href="#">
+								<i class="fa fa-flag-o"></i>
+								Help </a>
+							</li>
+						</ul>
+					</div>
+					<!-- END MENU -->
+				</div>
+		</div>
+
+
+	<br>
+	<br>
+	</div>
+</div>
+		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mudidashboard.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,233 @@
+<?php $role = Session::get('role'); ?>
+
+<?php $__env->startSection('content-header'); ?>
+  <h1>
+      <?php echo Lang::get('conversion.dashboard'); ?>
+
+    <small><?php echo isset($page_description) ? $page_description : null; ?></small>
+  </h1>
+  <!-- You can dynamically generate breadcrumbs here -->
+  <?php /*<ol class="breadcrumb">
+    <li><a href=""><i class="fa fa-dashboard"></i> Manage Profile</a></li>
+    <li class="active">Change Password</li>
+  </ol>*/ ?>
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('main'); ?>
+    <?php if($role == 2): ?>
+
+        <div class='row'>
+          <div class='col-md-8 col-md-offset-2'>
+            <!-- Box -->
+            <div class="box box-primary">
+              <div class="box-header with-border">
+                <h3 class="box-title">Band Dashboard</h3>
+                <div class="box-tools pull-right">
+                  <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                  <button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+                </div>
+              </div>
+              <div class="box-body">
+                  <div>
+                      <a href="<?php echo action('getlicenses.create'); ?>"><i class="fa fa-user"></i>&nbsp; Get License</a>
+                  </div>
+                  <div>
+                      <a href="<?php echo action('getscores.index'); ?>"><i class="fa fa-download"></i>&nbsp;Get Score</a>
+                  </div>
+                  <div>
+                      <a href="<?php echo action('managebandprofiles.index'); ?>"> <i class="fa fa-user"></i>&nbsp; Manage Profile</a>
+                  </div>
+              </div><!-- /.box-body -->
+
+            </div><!-- /.box -->
+          </div><!-- /.col -->
+        </div>
+
+</div>
+<?php endif; ?>
+<?php if($role == 3): ?>
+    <?php /* start report for publisher*/ ?>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion-ios-musical-notes"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text"><?php echo Lang::get('conversion.number_of_score'); ?></span>
+                    <span class="info-box-number"><?php echo $dashboards['scores']; ?></span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="ion-disc"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text"><?php echo Lang::get('conversion.number_of_album'); ?></span>
+                    <span class="info-box-number"><?php echo $dashboards['total_album']; ?></span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+
+        <!-- fix for small devices only -->
+        <div class="clearfix visible-sm-block"></div>
+
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text"><?php echo Lang::get('conversion.sales_album'); ?></span>
+                    <span class="info-box-number"><?php echo $dashboards['sales_album']; ?></span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text"><?php echo Lang::get('conversion.album_user'); ?></span>
+                    <span class="info-box-number"><?php echo $dashboards['involve_band']; ?></span>
+                </div><!-- /.info-box-content -->
+            </div><!-- /.info-box -->
+        </div><!-- /.col -->
+    </div>
+    <?php /* end report for publisher*/ ?>
+    <div class='row'>
+        <div class="col-md-8">
+            <div class="col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><?php echo Lang::get('conversion.latest_score'); ?></h3>
+                        <div class="box-tools pull-right">
+                            <span class="label label-danger"><?php echo Lang::get('conversion.new_score'); ?></span>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <ul class="users-list clearfix">
+                            <?php foreach($dashboards['latest_score'] as $latestScore): ?>
+                            <li>
+                                <div class="score-style"><i class="ion-ios-musical-notes"></i></div>
+                                <div>
+                                <a class="users-list-name" href="#"><?php echo $latestScore->score_title; ?></a>
+                                    </div>
+                            </li>
+                             <?php endforeach; ?>
+
+                        </ul><!-- /.users-list -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript::" class="uppercase"><?php echo Lang::get('conversion.view_all_score'); ?></a>
+                    </div><!-- /.box-footer -->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <h3 class="box-title"><?php echo Lang::get('conversion.latest_album'); ?></h3>
+                        <div class="box-tools pull-right">
+                            <span class="label label-danger"><?php echo Lang::get('conversion.new_album'); ?></span>
+                            <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <div class="box-body no-padding">
+                        <ul class="users-list clearfix">
+                            <?php foreach($dashboards['latest_album'] as $latestAlbum): ?>
+                                <li>
+                                    <div class="album-style">
+                                        <i class="ion-disc"></i>
+                                    </div>
+                                    <div>
+                                        <a class="users-list-name" href="#"><?php echo $latestAlbum->album_name; ?></a>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+
+                        </ul><!-- /.users-list -->
+                    </div><!-- /.box-body -->
+                    <div class="box-footer text-center">
+                        <a href="javascript::" class="uppercase"><?php echo Lang::get('conversion.view_all_album'); ?></a>
+                    </div><!-- /.box-footer -->
+                </div>
+
+            </div>
+            <?php /* sales Report*/ ?>
+
+
+        </div>
+        <div class="col-md-4">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><?php echo Lang::get('conversion.latest_sales_score'); ?></h3>
+                    <div class="box-tools pull-right">
+                        <span class="label label-danger"><?php echo Lang::get('conversion.new_sales_score'); ?></span>
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                    <ul class="users-list clearfix">
+                        <?php foreach($dashboards['sales_score'] as $score): ?>
+                            <li>
+                                <div class="album-style">
+                                    <i class="ion-disc"></i>
+                                </div>
+                                <div>
+                                    <a class="users-list-name" href="#"><?php echo $score->score_title; ?></a>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul><!-- /.users-list -->
+                </div><!-- /.box-body -->
+                <div class="box-footer text-center">
+                    <a href="javascript::" class="uppercase"><?php echo Lang::get('conversion.view_all_sales_score'); ?></a>
+                </div><!-- /.box-footer -->
+            </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="box box-info">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><?php echo Lang::get('conversion.latest_sales_report'); ?></h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body" style="display: block;">
+                    <div class="table-responsive">
+                        <table class="table no-margin">
+                            <thead>
+                            <tr>
+                                <th><?php echo Lang::get('conversion.album_name'); ?></th>
+                                <th><?php echo Lang::get('conversion.score_title'); ?></th>
+                                <th><?php echo Lang::get('conversion.number_of_time_sales'); ?></th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php foreach($dashboards['sales_report'] as $report): ?>
+                                <tr>
+                                    <td><?php echo $report->album_name; ?></td>
+                                    <td><?php echo $report->score_title; ?></td>
+                                    <td><span class="label label-success"><?php echo $report->times_if_sale; ?></span></td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div><!-- /.table-responsive -->
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix" style="display: block;">
+                    <a href="javascript::" class="btn btn-sm btn-default btn-flat pull-right"><?php echo Lang::get('conversion.view_all_sales_report'); ?></a>
+                </div><!-- /.box-footer -->
+            </div>
+        </div>
+    </div>
+
+
+<?php endif; ?>
+		
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('mudidashboard.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

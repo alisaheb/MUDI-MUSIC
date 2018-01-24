@@ -1,0 +1,34 @@
+<div class="form-group">
+  <label for="inputEmail" class="col-lg-2 control-label">Lead name</label>
+    <div class="col-lg-10">
+        <input value="<?php echo Input::old('band_lead_name'); ?>" name="band_lead_name" type="text" class="form-control" id="inputEmail" placeholder="Lead Name">
+    </div>
+</div>
+
+<div class="form-group">
+   <label for="inputPassword" class="col-lg-2 control-label">Band Name</label>
+    <div class="col-lg-10">
+      <input value="<?php echo Input::old('band_name'); ?>"  name="band_name" type="text" class="form-control" id="inputPassword" placeholder="Band Name">        
+    </div>
+</div>
+
+  <div class="row">
+    <?php foreach($licensetypes as $licensetype): ?>
+      <div class="col-md-4">
+        <div class="list-group">
+          <a href="#" class="list-group-item">
+            <div class="radio">
+              <label>
+                <input type="radio" name="license_type" id="optionsRadios2" value="<?php echo $licensetype->id; ?>">
+                <h4 class="list-group-item-heading"><?php echo $licensetype->license_name; ?></h4>
+              </label>
+            </div>
+            <p class="list-group-item-text">Validity:<?php echo $licensetype->validity; ?></p>
+            <p class="list-group-item-text">Update Availability:<?php echo $licensetype->update_applicable_days; ?></p>
+            <p class="list-group-item-text">Free Practice Total:<?php echo $licensetype->free_practice_total; ?></p>
+            <p class="list-group-item-text">Device allow:<?php echo $licensetype->devices_allowed_total; ?></p>
+          </a>      
+        </div>
+      </div>
+     <?php endforeach; ?>        
+  </div>

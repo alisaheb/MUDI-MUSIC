@@ -1,0 +1,1 @@
+C:\xampp\htdocs\mudi\app/views/managepublisherprofiles/show.blade.php

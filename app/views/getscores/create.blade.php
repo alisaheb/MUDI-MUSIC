@@ -1,0 +1,1 @@
+D:\Ali Saheb\mudi\app/views/getscores/create.blade.php

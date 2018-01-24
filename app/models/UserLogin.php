@@ -1,0 +1,46 @@
+<?php
+
+class UserLogin extends \Eloquent {
+
+	protected $table = 'user_login';
+	protected $primaryKey = 'user_id';
+
+	// Add your validation rules here
+	public static  function createRules(){
+		return [
+		// 'title' => 'required'
+		'user_name'=>'',
+		'user_password'=>'required|min:3|confirmed',
+		'user_password_confirmation'=>'required|min:3',
+		'user_email'=>'required|unique:user_login',
+		'role'=>'',
+		'current_status'=>'',
+		];
+	}
+
+	public static function updateRules(){
+		return [
+		// 'title' => 'required'
+		'user_name'=>'',
+		'user_password'=>'',
+		'user_password_confirmation'=>'',
+		'user_email'=>'',
+		'role'=>'',
+		'current_status'=>'',
+		];	
+	}
+
+	// Don't forget to fill this array
+	protected $fillable = [
+		'user_name',
+		'user_password',
+		'user_email',
+		'role',
+		'current_status',
+		'password_last_set',
+		'forgot_code',
+		'forgot_generated',
+
+	];
+
+}

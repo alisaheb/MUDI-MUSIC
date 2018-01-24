@@ -1,0 +1,16 @@
+<?php $__env->startSection('content'); ?>
+<?php echo Form::open(array('url'=>'/forgotpassword','method'=>'post')); ?>
+
+<h1>Forgot Password</h1>
+<div>
+	<input value="<?php echo Input::old('email'); ?>" type="text" placeholder="Enter email" required="" id="username" name="email"/>
+</div>
+<div>
+	<input style="width:130px;" type="submit" value="Reset Password" />
+	<a href="/register">Register</a>
+	<a href="/login">Login</a>
+</div>
+<?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

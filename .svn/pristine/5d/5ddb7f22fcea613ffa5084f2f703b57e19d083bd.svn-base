@@ -1,0 +1,132 @@
+@extends('mudidashboard.master')
+
+@section('content-header')
+	<h1>
+		{{Lang::get('conversion.upload_score')}}
+		<small>{{ $page_description or null }}</small>
+	</h1>
+	<!-- You can dynamically generate breadcrumbs here -->
+	{{--<ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
+      <li class="active">Here</li>
+    </ol>--}}
+
+@stop
+
+@section('main')
+		<div class='row'>
+			<div class='col-md-8 col-md-offset-2'>
+				<!-- Box -->
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">{{Lang::get('conversion.upload_score')}}</h3>
+						<div class="box-tools pull-right">
+							<button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+							<button class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove"><i class="fa fa-times"></i></button>
+						</div>
+					</div>
+					<div class="box-body">
+						{{ Former::horizonal_open()->action(route('uploadscores.store'))->method('POST')->enctype('multipart/form-data')->id('target') }}
+
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="inputEmail" class="col-lg-4 control-label">{{Lang::get('conversion.album_name')}}</label>
+										<div class="col-lg-8">
+											<input name="album_name" type="text" class="form-control" id="album-name" placeholder="{{Lang::get('conversion.album_name')}}">
+										</div>
+									</div>
+									<table class="table table-form table-bordered addrowtable" id="items-table">
+										<thead>
+										<tr class="thead">
+											<th>{{Lang::get('conversion.track_name')}}</th>
+											<th>{{Lang::get('conversion.track_file')}}</th>
+											<th>{{Lang::get('conversion.action')}}</th>
+										</tr>
+										</thead>
+
+										<tbody>
+
+										</tbody>
+
+									</table>
+									<button type="button" class="btn btn-primary btn-xs addrow pull-right" id="add-row" >{{Lang::get('conversion.add_detail')}}</button>
+								</div>
+							</div>
+
+						<button type="submit" id="preventingDefault" class="btn btn-primary">{{Lang::get('conversion.upload')}}</button>
+						{{Former::close()}}
+					</div><!-- /.box-body -->
+
+				</div><!-- /.box -->
+			</div><!-- /.col -->
+		</div>
+		
+@stop
+
+@section('footer')
+<script type="text/template" id="new-item-row">
+<tr id="<%=uid%>">		
+		
+	<td class="full">
+		<input type="text" id="title-exist" class="rate" name="currentItem[<%= uid %>][score_title]" value="">
+	</td>
+	<td class="full">
+		<input type="file" id="file-exist"  class="sales-qty quickedit" name="currentItem[<%= uid %>][file_path]" value="" >
+	</td>	
+	<td>
+		<button type="button" class="btn btn-warning btn-xs delete-row">Delete</button>		
+	</td>
+</tr>
+</script>
+
+<script type="text/javascript">
+
+var validScore = function(){
+	var valititle = $('#items-table tr:last-child #title-exist').val(); 
+	var valfile = $('#items-table tr:last-child #file-exist').val();
+
+	if(valfile == "" || valititle == "" ){
+		return false;
+	}
+	return true;
+};
+$("#add-row").on('click', function(){
+		var validator = validScore();
+		if(validator == true){
+		var template = _.template($("#new-item-row").html());
+		var uid = _.uniqueId('new-');
+		var row = template({'uid': uid});
+		$("#items-table tbody").append(row);
+		}
+
+		else{
+			sweetAlert("Oops...", "You have to set score title and attach the score file", "error");
+		}						
+	});
+
+	$(document).on('click', '.delete-row', function(){
+		var $row = $(this).parent().parent();
+		$row.fadeOut().remove();		
+	});
+
+$("#add-row").click();
+
+$( "#preventingDefault" ).click(function( event ) {
+  event.preventDefault();
+    var valititle = $('#items-table tr:last-child #title-exist').val(); 
+	var valfile = $('#items-table tr:last-child #file-exist').val();
+	var album_name = $('#album-name').val();
+	
+
+	if(valfile == "" || valititle == "" || album_name == "" ){
+		sweetAlert("Oops...", "You have to set score title and attach the score file And Album Name", "error");
+	}
+  else{
+  	$( "#target" ).submit(); 
+  }
+  
+});
+
+</script>
+@stop
